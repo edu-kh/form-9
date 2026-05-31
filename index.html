@@ -281,17 +281,26 @@
 
 <script>
 document.getElementById("signupForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById("status");
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-  const form = e.target;
-  const status = document.getElementById("status");
-  const submitBtn = form.querySelector('button[type="submit"]');
+    // Check if the form is valid (though HTML5 'required' handles this, this is a safe catch)
+    if (!form.checkValidity()) {
+        status.textContent = "❌ បំពេញទាំងអស់!";
+        status.style.color = "red";
+        return;
+    }
 
-  // Disable button during submission
-  submitBtn.disabled = true;
-  submitBtn.style.opacity = "0.6";
-  submitBtn.style.cursor = "not-allowed";
-  status.textContent = "⏳ សូមរង់ចាំ...";
+    // Disable button during submission
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.6";
+    submitBtn.style.cursor = "not-allowed";
+    status.textContent = "⏳ សូមរង់ចាំ...";
+    status.style.color = "green"; // Reset color to green for success path
+
+    // ... rest of your code ...
 
   const formData = new FormData(form);
   const imageInput = document.querySelector('input[name="image"]');
